@@ -1,0 +1,5 @@
+finetuning/datasets/
+finetuning/results/
+
+__pycache__
+clip.egg-info/
