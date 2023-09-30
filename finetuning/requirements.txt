@@ -1,0 +1,10 @@
+numpy
+torch
+torchvision
+pillow
+tqdm
+matplotlib
+tdw
+ftfy
+regex
+sentence_transformers
