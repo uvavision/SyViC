@@ -24,9 +24,11 @@ Too many users have viewed or downloaded this file recently. Please try accessin
 We apologize for the inconvenience and are working on finding a more scalable hosting solution. Thank you for your understanding and patience.
 
 # Data Generation
-We provide code and instructions for dataset generation and extensibility in `./dataset_generation`.
+We provide code and instructions for dataset generation and extensibility in [`./dataset_generation`](https://github.com/uvavision/SyViC/tree/main/dataset_generation).
 
 # Finetuning
+We provide code for preprocessing our dataset and for finetuning CLIP in [`./finetuning`](https://github.com/uvavision/SyViC/tree/main/finetuning).
+
 ### **Setup**:
 Create a virtual environment with required dependancies.
 ```bash
