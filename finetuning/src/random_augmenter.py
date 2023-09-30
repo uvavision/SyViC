@@ -10,12 +10,13 @@ from src.utils.augmentations import RandomAugmentation
 PARAMETER_MAX = 10
 
 augment_dict = {
-    fn.__name__: (fn, v1, v2)
-    for fn, v1, v2 in RandomAugmentation.augment_list()
+    fn.__name__: (fn, v1, v2) for fn, v1, v2 in RandomAugmentation.augment_list()
 }
+
 
 def get_augment(name):
     return augment_dict.get(name)
+
 
 def autoaug2arsaug(f):
     """

@@ -7,11 +7,18 @@ from torch.utils.data import Sampler
 
 HMDB51_VIDEO_MAPPING_PATH = "resources/syn4vl_hmdb51_mapping.json"
 
+
 class ImagenetHandler:
     IMAGENET_DATA_PATH = "datasets/imagenet/ILSVRC/Data/CLS-LOC/train"
-    IMAGENET_NAMES_PATH = "datasets/imagenet/ILSVRC/Annotations/CLS-LOC/imagenet_class_index.json"
-    IMAGENET_VIDEO_MAPPING_ACTIONS_PATH = "resources/syn4vl_imagenet_actions_mapping.json"
-    IMAGENET_VIDEO_MAPPING_OBJECTS_PATH = "resources/syn4vl_imagenet_objects_mapping.json"
+    IMAGENET_NAMES_PATH = (
+        "datasets/imagenet/ILSVRC/Annotations/CLS-LOC/imagenet_class_index.json"
+    )
+    IMAGENET_VIDEO_MAPPING_ACTIONS_PATH = (
+        "resources/syn4vl_imagenet_actions_mapping.json"
+    )
+    IMAGENET_VIDEO_MAPPING_OBJECTS_PATH = (
+        "resources/syn4vl_imagenet_objects_mapping.json"
+    )
 
     def __init__(self):
         self.imagenet_mapping = {}
@@ -21,7 +28,7 @@ class ImagenetHandler:
 
             with open(ImagenetHandler.IMAGENET_VIDEO_MAPPING_OBJECTS_PATH) as f:
                 self.imagenet_mapping.update(json.load(f))
-            
+
             with open(ImagenetHandler.IMAGENET_NAMES_PATH) as f:
                 imagenet_names = json.load(f)
         else:
@@ -48,10 +55,15 @@ class ImagenetHandler:
             + img_txt.replace("_", " ")
         )
         return img_path, img_txt
-    
+
     @staticmethod
     def does_imagenet_exist():
-        return (os.path.isfile(ImagenetHandler.IMAGENET_VIDEO_MAPPING_ACTIONS_PATH) and os.path.isfile(ImagenetHandler.IMAGENET_VIDEO_MAPPING_OBJECTS_PATH) and os.path.isfile(ImagenetHandler.IMAGENET_NAMES_PATH))
+        return (
+            os.path.isfile(ImagenetHandler.IMAGENET_VIDEO_MAPPING_ACTIONS_PATH)
+            and os.path.isfile(ImagenetHandler.IMAGENET_VIDEO_MAPPING_OBJECTS_PATH)
+            and os.path.isfile(ImagenetHandler.IMAGENET_NAMES_PATH)
+        )
+
 
 class IndexRandomSampler(Sampler):
     def __init__(self, dataset, use_real=False):

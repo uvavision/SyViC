@@ -165,7 +165,7 @@ class FT_CLIP:
                 style_transfer=self.args.style_transfer,
                 imagenet_handler=self.imagenet_handler,
             )
-        
+
         self.tdw_dataset = ConcatDataset([dict_all_dataset_types[t] for t in type_data])
         self.dataset_loader = torch.utils.data.DataLoader(
             self.tdw_dataset,
@@ -309,7 +309,9 @@ class FT_CLIP:
                 model_optimizer.step()
                 if self.args.lora_r <= 0:
                     convert_weights(self.model)
-                pbar.set_description(f"epoch {step} batch: {i} - avg. loss: {log_total_loss / (i + 1)}")
+                pbar.set_description(
+                    f"epoch {step} batch: {i} - avg. loss: {log_total_loss / (i + 1)}"
+                )
 
             print(
                 "epoch: ",

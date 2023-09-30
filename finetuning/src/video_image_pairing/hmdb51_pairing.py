@@ -21,12 +21,14 @@ model = models.resnet152(weights=models.ResNet152_Weights.DEFAULT)
 model = torch.nn.Sequential(*(list(model.children())[:-1])).to(device)
 model.eval()
 
-preprocess = transforms.Compose([
-    transforms.Resize(256),
-    transforms.CenterCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-])
+preprocess = transforms.Compose(
+    [
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ]
+)
 
 hmdb51_embs = []
 
@@ -36,10 +38,10 @@ for i, img_path in tqdm(enumerate(hmdb51_image_paths), total=len(hmdb51_image_pa
     img = Image.open(img_path)
     img = preprocess(img)
     batch_imgs.append(img)
-    if (i+1) % bz != 0 and i != (len(hmdb51_image_paths) - 1):
+    if (i + 1) % bz != 0 and i != (len(hmdb51_image_paths) - 1):
         continue
     batch_imgs = torch.stack(batch_imgs).to(device)
-    
+
     with torch.no_grad():
         out = model(batch_imgs)
         hmdb51_embs.append(out.cpu().numpy())
@@ -69,8 +71,10 @@ for v in tqdm(video_paths):
 
 video_objects_embeddings = np.stack(video_objects_embeddings)
 
+
 def cosine(u, v):
     return np.dot(u, v.T) / (np.linalg.norm(u) * np.linalg.norm(v))
+
 
 cos_sim = cosine(video_objects_embeddings, hmdb51_embs)
 cos_sim_argmax = cos_sim.argmax(axis=1)
